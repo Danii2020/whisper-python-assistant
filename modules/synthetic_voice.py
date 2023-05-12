@@ -207,7 +207,7 @@ except NameError:
                     print("")
                     if not GrifinLimSynthesis:
                         sr_mix_audio = sr_mix.astype(np.int16)
-                        sf.write(ruta_archivo, sr_mix_audio, h2.sampling_rate)
+                        sf.write(file_path, sr_mix_audio, h2.sampling_rate)
                     else:
                         waveform_audio = waveform.numpy()
                         sf.write(file_path, waveform_audio, 22050)
