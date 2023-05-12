@@ -4,6 +4,7 @@ import tempfile
 import os
 import time
 from pygame import mixer
+from synthetic_voice import syntetize_voice
 
 fake_you = fakeyou.FakeYou()
 
@@ -23,9 +24,8 @@ class Talk:
     def __generate_audio(self, text):
         temp_file = tempfile.mkdtemp()
         filename = os.path.join(temp_file, 'temp.wav')
-        tts_model_token = self.__get_tts_token(self.model_name)
-        fake_you.say(text=text, ttsModelToken=tts_model_token, filename=filename)
-        return filename
+        synthetic_audio = syntetize_voice(text, filename)
+        return synthetic_audio
 
     def talk(self, text):
         mixer.init()
@@ -34,4 +34,3 @@ class Talk:
         audio_duration = mixer.Sound(filename).get_length()
         mixer.music.play()
         time.sleep(audio_duration)
-
