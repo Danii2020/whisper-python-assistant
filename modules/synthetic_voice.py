@@ -132,7 +132,7 @@ except NameError:
         pbar.update(1) # Downloaded and Set up Tacotron2
 
         # Extra Info
-        def end_to_end_infer(text, pronounciation_dictionary, show_graphs, GrifinLimSynthesis):
+        def end_to_end_infer(text, pronounciation_dictionary, GrifinLimSynthesis, file_path):
             for i in [x for x in text.split("\n") if len(x)]:
                 if not pronounciation_dictionary:
                     if i[-1] != ";": i=i+";" 
@@ -206,9 +206,11 @@ except NameError:
                     
                     print("")
                     if not GrifinLimSynthesis:
-                      ipd.display(ipd.Audio(sr_mix.astype(np.int16), rate=h2.sampling_rate))
+                        sr_mix_audio = sr_mix.astype(np.int16)
+                        sf.write(ruta_archivo, sr_mix_audio, h2.sampling_rate)
                     else:
-                      ipd.display(ipd.Audio(waveform, rate=22050))
+                        waveform_audio = waveform.numpy()
+                        sf.write(file_path, waveform_audio, 22050)
                     
     initialized = "Ready"
 
@@ -238,7 +240,7 @@ def convert_num_to_words(utterance):
     utterance = ' '.join([num2words.num2words(i ,lang='es') if i.isdigit() else i for i in utterance.split()])
     return utterance
 
-def synthesize_voice(text):
+def synthesize_voice(text, file_path):
   while True:
       try:
           transcript = text
@@ -249,7 +251,7 @@ def synthesize_voice(text):
           line = ultima
           if line == "":
               continue
-          end_to_end_infer(line, pronounciation_dictionary, show_graphs, GrifinLimSynthesis)
+          end_to_end_infer(line, pronounciation_dictionary, GrifinLimSynthesis, file_path)
       except EOFError:
           break
       except KeyboardInterrupt:
