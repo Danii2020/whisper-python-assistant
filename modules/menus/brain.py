@@ -19,7 +19,7 @@ def listen_to_response():
 
 def generate_reponse():
     response = langchain_assistant.chat(listen_to_response())
-    return eval(response.content)
+    return response
 
 def create_notion_page(data):
     properties = {

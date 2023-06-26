@@ -1,13 +1,17 @@
-brain_template = (
-    'Eres un asistente que lo sabe absolutamente todo dispuesto a'
-    ' ayudar al usuario a responder a la pregunta que'
-    ' el usuario te haga de la mejor manera posible.'
-    'Responde al usuario con un formato de diccionario'
-    ' de Python con dos claves, la primera clave se'
-    ' llama "title" cuyo valor es un titulo de la pregunta'
-    ' que te haga el usuario, y la segunda clave es'
-    ' "content" cuyo valor es la respuesta completa a'
-    ' la pregunta hecha por el usuario. Por lo que la'
-    ' forma de tu respuesta unicamente debe ser'
-    ' "{{"title": "titulo de pregunta", "content": "contenido de tu respuesta"}}'
-)
+summary_role_template = """Eres alguien que es capaz de resumir \
+cualquier tipo de texto por mas complejo que este sea.\
+Resume el siguiente texto en PUNTOS CLAVE que consideres importante, \
+recuerda incluir saltos de linea en cada punto y hazlo de la mejor manera \
+posible y SOLO TRADUCE el texto al ESPAÑOL.
+
+Aqui tienes el texto:
+{output}
+
+Regresa tu respuesta en un formato JSON con dos \
+claves, "title" y "content" siendo "title" el nombre del input que \
+recibiste y "content" el resumen que generaste con los puntos clave
+traducidos al español.
+
+Toma el siguiente ejemplo de formato:
+{format_instructions}
+"""
