@@ -1,36 +1,22 @@
 import dotenv
 
 from langchain.chat_models import ChatOpenAI
-# from langchain.prompts.chat import (
-#     ChatPromptTemplate,
-#     SystemMessagePromptTemplate,
-#     HumanMessagePromptTemplate,
-# )
-from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SimpleSequentialChain
 from langchain.agents import load_tools, initialize_agent, AgentType
 from langchain.output_parsers import StructuredOutputParser
 from modules.roles_templates.roles_templates import roles_templates
 from modules.schemas.brain_schema import response_schemas
-import langchain
+from modules.langchain_assistant.utils import create_prompt_template, check_format
 
 dotenv.load_dotenv()
 llm = ChatOpenAI(temperature=0.2)
 tools = load_tools(["google-serper"], llm=llm)
 output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
 format_instructions = output_parser.get_format_instructions()
-print(format_instructions)
-# langchain.debug = True
 
-class LangChainBrainAssistant:
-    def __create_chain(self):
-        prompt_template = roles_templates.get("prompt_template")
-        prompt = PromptTemplate(
-            template=prompt_template,
-            input_variables=["output"],
-            partial_variables={"format_instructions": format_instructions}
-        )
-        return LLMChain(llm=llm, prompt=prompt)
+class LangChainBrowserAssistant:
+    def __create_chain(self, prompt_template):
+        return LLMChain(llm=llm, prompt=prompt_template)
 
     def __create_agent(self):
         return initialize_agent(
@@ -41,13 +27,26 @@ class LangChainBrainAssistant:
             verbose=False
         )
 
+    def __create_prompts_template(self):
+        return [
+            create_prompt_template(role_template, format_instructions)
+            for role_template in roles_templates[1:]
+        ]
+
+    def __create_chains(self, prompts_template):
+        return [
+            self.__create_chain(prompt_template)
+            for prompt_template in prompts_template
+        ]
+
     def chat(self, input):
         agent = self.__create_agent()
-        chain = self.__create_chain()
+        prompts_template = self.__create_prompts_template()
+        chains = self.__create_chains(prompts_template)
+        chains.insert(0, agent)
         overall_chain = SimpleSequentialChain(
-            chains=[agent, chain],
-            verbose=False
+            chains=chains,
+            verbose=True
         )
-        response = overall_chain.run(input)
-        print(response)
+        response = check_format(overall_chain.run(input))
         return output_parser.parse(response)

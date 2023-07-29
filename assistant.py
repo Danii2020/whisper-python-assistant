@@ -5,10 +5,10 @@ from modules.keywords.keywords import keywords
 def main():
     listener = Listener()
     try:
-        user_prompt = listener.listen()
+        user_prompt = input("Escribe tu pregunta: ")
         command = list(filter(lambda x: x in user_prompt, keywords))
         if command:
-            keywords[command[0]]()
+            keywords[command[0]](role=command[0])
     except Exception as e:
         print(f"Los siento no te entendí debido a este error: {e}")
         print(e)
