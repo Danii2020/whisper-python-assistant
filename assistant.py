@@ -5,7 +5,7 @@ from modules.keywords.keywords import keywords
 def main():
     listener = Listener()
     try:
-        user_prompt = input("Escribe tu pregunta: ")
+        user_prompt = input("Escribe: ")
         command = list(filter(lambda x: x in user_prompt, keywords))
         if command:
             keywords[command[0]](role=command[0])
