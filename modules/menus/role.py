@@ -6,6 +6,7 @@ from modules.langchain_assistant.langchain_productivy_assistant import LangChain
 from modules.langchain_assistant.langchain_browser_assistant import LangChainBrowserAssistant
 from modules.langchain_assistant.langchain_scientist_assistant import LangChainScientisAssistant
 from modules.langchain_assistant.langchain_chat_assistant import LangChainChatAssistant
+from modules.langchain_assistant.langchain_chat_assistant import LangChainChatAssistant
 
 talker = Talker(TtsTalker())
 listener = Listener()
@@ -48,6 +49,7 @@ def identify_role(user_prompt):
     if "cambia a modo" in user_prompt:
         user_prompt = user_prompt.rstrip(".")
         words = user_prompt.split()
+        roles = ["productivo", "navegador", "científico", "chat"]
         roles = ["productivo", "navegador", "científico", "chat"]
         matched_roles = [word for word in words if word in roles]
         if len(matched_roles) >= 1:

@@ -4,5 +4,5 @@ keywords = {
     "productivo":start_role,
     "navegador": start_role,
     "científico": start_role,
-    "chat": start_role,
+    "chat": start_role
 }
