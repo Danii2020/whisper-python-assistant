@@ -32,7 +32,6 @@ class LangChainScientisAssistant:
             verbose=True
         )
         response = overall_chain.run(input)
-        breakpoint()
         response = {
             "title": input,
             "content": response

@@ -7,6 +7,7 @@ from modules.langchain_assistant.langchain_browser_assistant import LangChainBro
 from modules.langchain_assistant.langchain_scientist_assistant import LangChainScientisAssistant
 from modules.langchain_assistant.langchain_chat_assistant import LangChainChatAssistant
 from modules.langchain_assistant.langchain_chat_assistant import LangChainChatAssistant
+from modules.langchain_assistant.langchain_document_assistant import LangChainDocumentAssistant
 
 talker = Talker(TtsTalker())
 listener = Listener()
@@ -83,7 +84,11 @@ def handle_user_prompt(role, user_prompt, assistant):
 
 def start_role(role):
     say_welcome(role)
-    assistant = langchain_roles[role]()
+    if 'documento' in role:
+        document_name = input("Escribe el nombre del archivo: ")
+        assistant = LangChainDocumentAssistant(document_name=document_name)
+    else:
+        assistant = langchain_roles[role]()
     while True:
         user_prompt = listen_to_response()
         if "termina" in user_prompt:
