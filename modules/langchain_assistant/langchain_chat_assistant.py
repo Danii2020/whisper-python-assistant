@@ -1,5 +1,5 @@
 import dotenv
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain
 from modules.roles_templates.roles_templates import roles_templates
 from langchain.prompts import (

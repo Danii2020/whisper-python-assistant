@@ -1,6 +1,6 @@
 import dotenv
 
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain, SimpleSequentialChain
 from langchain.output_parsers import StructuredOutputParser
 from modules.roles_templates.roles_templates import roles_templates

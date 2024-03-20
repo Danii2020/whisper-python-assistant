@@ -1,9 +1,9 @@
 import dotenv
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.document_loaders import TextLoader, PyPDFLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 
 dotenv.load_dotenv()

@@ -1,6 +1,6 @@
 import dotenv
 
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.chains import LLMChain, SimpleSequentialChain
 from langchain.agents import load_tools, initialize_agent, AgentType
 from langchain.output_parsers import StructuredOutputParser
