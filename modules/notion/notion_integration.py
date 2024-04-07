@@ -4,8 +4,8 @@ import os
 
 dotenv.load_dotenv()
 
-notion = notion_client.Client(auth=os.getenv("NOTION_API_KEY"))
-NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
+notion = notion_client.Client(auth=os.getenv("NOTION_SECRET"))
+NOTION_DATABASE_ID = os.getenv("NOTION_DB_ID")
 
 class Notion:
     def create_page(self, properties, children, db_id=NOTION_DATABASE_ID):

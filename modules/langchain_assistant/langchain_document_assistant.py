@@ -21,5 +21,4 @@ class LangChainDocumentAssistant:
 
     def chat(self, query):
         result = self.qa.run(query)
-        breakpoint()
         return result
